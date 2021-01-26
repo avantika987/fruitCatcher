@@ -1,7 +1,8 @@
 class Game{
     constructor(){
-
+        
     }
+    
     getState() {
         var gameStateRef = database.ref('gameState');
         gameStateRef.on("value", function (data) {
@@ -15,6 +16,7 @@ class Game{
             gameState: state
         });
     }
+    
     async start() {
             if (gameState === 0) {
                 player = new Player();
@@ -59,6 +61,9 @@ class Game{
                          fill("black");
                          textSize(25);
                          text(allPlayers[plr].name ,x-25,y+25);
+                         fill("white");
+                         text("Player 1 : "+player1Score,50,50);
+                         text("Player 2 : "+player2Score,50,80); 
                     }
                  }
                  if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
@@ -92,14 +97,16 @@ class Game{
                  
                   if (player.index !== null) {
                      //fill code here, to destroy the objects.
-                     if(fruitGroup.isTouching(player1)||fruitGroup.isTouching(player2)){
-                      //  World.remove(world,fruits);
-                     /*this.Visiblity = 255;
-                     this.Visiblity = this.Visiblity - 5;
-                      tint(255,this.Visiblity);*/
-                      fruitGroup.destroyEach();
+                     if(fruitGroup.isTouching(player1)){
+                      fruitGroup[0].destroy();
+                        player1Score = player1Score + 1;
                       //fruits.destroyEach();
                      }
+                     if(fruitGroup.isTouching(player2)){
+                        fruitGroup[0].destroy();
+                        player2Score = player2Score +1;
+                        //fruits.destroyEach();
+                       }
                      
                   }
             }
